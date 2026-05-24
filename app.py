@@ -14,10 +14,24 @@ import matplotlib.patches as mpatches
 import seaborn as sns
 import textwrap
 import re
+import base64
+import os
 from datetime import datetime
 from wordcloud import WordCloud
 import warnings
 warnings.filterwarnings('ignore')
+
+# ============================================================================
+# FUNCIÓN UTILITARIA: CARGAR LOGO EN BASE64
+# ============================================================================
+def cargar_logo_base64(ruta_imagen: str) -> str:
+    """Lee una imagen del disco y la convierte a cadena base64."""
+    with open(ruta_imagen, "rb") as f:
+        return base64.b64encode(f.read()).decode()
+
+# Ruta del logo institucional (debe estar en el mismo directorio que app.py)
+_LOGO_PATH = os.path.join(os.path.dirname(__file__) if "__file__" in dir() else ".", "Logo-nuevo-vertical.png")
+_LOGO_B64  = cargar_logo_base64(_LOGO_PATH) if os.path.exists(_LOGO_PATH) else None
 
 # ============================================================================
 # CONFIGURACIÓN DE PÁGINA
@@ -34,12 +48,29 @@ st.markdown("""
 <style>
     .main-header {
         background: linear-gradient(135deg, #8B0000 0%, #C73E1D 100%);
-        padding: 20px;
+        padding: 20px 30px;
         border-radius: 10px;
         color: white;
         text-align: center;
         margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 24px;
     }
+    .main-header-logo {
+        height: 90px;
+        width: auto;
+        flex-shrink: 0;
+        /* invertir colores para que el logo blanco/transparente se vea sobre fondo rojo */
+        filter: brightness(0) invert(1);
+    }
+    .main-header-text {
+        text-align: left;
+    }
+    .main-header h1 { margin: 0 0 4px 0; font-size: 1.7rem; }
+    .main-header h3 { margin: 0 0 4px 0; font-size: 1.1rem; opacity: .92; }
+    .main-header p  { margin: 0; font-size: .85rem; opacity: .80; }
     .metric-card {
         background: white;
         padding: 15px;
@@ -104,19 +135,37 @@ def cargar_datos(archivo):
 # ============================================================================
 # ENCABEZADO PRINCIPAL
 # ============================================================================
-st.markdown("""
+_logo_tag = (
+    f'<img src="data:image/png;base64,{_LOGO_B64}" class="main-header-logo" alt="Logo UFPS">'
+    if _LOGO_B64 else ""
+)
+st.markdown(f"""
 <div class="main-header">
-    <h1>📊 Dashboard de Alertas Tempranas</h1>
-    <h3>Universidad Francisco de Paula Santander — UFPS</h3>
-    <p>Análisis de Deserción y Permanencia Estudiantil | Maestría TIC aplicadas a la Educación</p>
+    {_logo_tag}
+    <div class="main-header-text">
+        <h1>📊 Dashboard de Alertas Tempranas</h1>
+        <h3>Universidad Francisco de Paula Santander — UFPS</h3>
+        <p>Análisis de Deserción y Permanencia Estudiantil | Maestría TIC aplicadas a la Educación</p>
+    </div>
 </div>
 """, unsafe_allow_html=True)
 
 # ============================================================================
 # CARGA DE ARCHIVO
 # ============================================================================
-st.sidebar.image("https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Escudo_UFPS.png/200px-Escudo_UFPS.png",
-                 width=120)
+# ── Logo en sidebar ──────────────────────────────────────────────────────────
+if _LOGO_B64:
+    st.sidebar.markdown(
+        f'<img src="data:image/png;base64,{_LOGO_B64}" '
+        f'style="width:140px; display:block; margin:0 auto 10px auto;" alt="Logo UFPS">',
+        unsafe_allow_html=True
+    )
+else:
+    # Fallback: escudo institucional en Wikimedia si no se encuentra el archivo local
+    st.sidebar.image(
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Escudo_UFPS.png/200px-Escudo_UFPS.png",
+        width=120
+    )
 st.sidebar.markdown("## ⚙️ Configuración")
 archivo = st.sidebar.file_uploader(
     "📂 Cargar archivo Excel (.xlsx)",
