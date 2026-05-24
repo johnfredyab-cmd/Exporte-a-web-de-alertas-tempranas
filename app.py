@@ -157,7 +157,7 @@ st.markdown(f"""
 if _LOGO_B64:
     st.sidebar.markdown(
         f'<img src="data:image/png;base64,{_LOGO_B64}" '
-        f'style="width:160px; display:block; margin:0 auto 10px auto;" alt="Logo UFPS">',
+        f'style="width:180px; display:block; margin:0 auto 10px auto;" alt="Logo UFPS">',
         unsafe_allow_html=True
     )
 else:
