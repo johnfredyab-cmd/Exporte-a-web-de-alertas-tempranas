@@ -145,24 +145,18 @@ def get_base64_of_bin_file(bin_file):
     return base64.b64encode(data).decode()
 
 # 2. Cargar el logo específico que está en tu directorio
-# Reemplaza 'nombre_del_logo_nuevo.png' por el nombre exacto de tu archivo
 ruta_logo_especifico = "BLANCO.png" 
 
 if os.path.exists(ruta_logo_especifico):
     logo_especifico_b64 = get_base64_of_bin_file(ruta_logo_especifico)
-# Aquí añadimos el estilo para controlar el tamaño (ejemplo: 150px)
     _nuevo_logo_tag = (
         f'<img src="data:image/png;base64,{logo_especifico_b64}" '
         f'class="main-header-logo" '
-        f'style="width: 200px; height: auto; margin-right: 40px;" ' # <--- AJUSTA EL ANCHO AQUÍ
+        f'style="width: 200px; height: auto; margin-right: 40px;" ' 
         f'alt="Logo Especifico">')
 else:
-    # Si el archivo no se encuentra, dejamos el tag vacío o puedes poner un texto
     _nuevo_logo_tag = ""
 
-# ============================================================================
-# ENCABEZADO PRINCIPAL (MODIFICADO)
-# ============================================================================
 st.markdown(f"""
 <div class="main-header">
     {_nuevo_logo_tag}
@@ -175,7 +169,7 @@ st.markdown(f"""
 """, unsafe_allow_html=True)
 
 # ============================================================================
-# CARGA DE ARCHIVO
+# CARGA DE ARCHIVO (MODIFICADO PARA GOOGLE DRIVE)
 # ============================================================================
 # ── Logo en sidebar ──────────────────────────────────────────────────────────
 if _LOGO_B64:
@@ -185,37 +179,33 @@ if _LOGO_B64:
         unsafe_allow_html=True
     )
 else:
-    # Fallback: escudo institucional en Wikimedia si no se encuentra el archivo local
     st.sidebar.image(
         "https://upload.wikimedia.org/wikipedia/commons/thumb/9/9d/Escudo_UFPS.png/200px-Escudo_UFPS.png",
         width=120
     )
 st.sidebar.markdown("## ⚙️ Configuración")
-archivo = st.sidebar.file_uploader(
-    "📂 Cargar archivo Excel (.xlsx)",
-    type=["xlsx"],
-    help="Sube el archivo consolidado de alertas tempranas de la UFPS"
-)
 
-if archivo is None:
-    st.info("👆 Por favor, carga el archivo Excel con los datos de alertas tempranas desde el panel lateral izquierdo.")
-    st.markdown("""
-    ### ¿Qué contiene este dashboard?
-    Una vez cargues el archivo verás:
-    - 📈 **Tendencia temporal** de alertas por año, semestre y mes
-    - 📚 **Top asignaturas** con mayor número de alertas
-    - ❓ **Razones de bajo desempeño** categorizadas
-    - 🔥 **Mapa de calor** asignaturas vs razones
-    - ☁️ **Nube de palabras** de razones personales y académicas
-    - 📊 **Dashboard ejecutivo** con KPIs principales
-    - 🔍 **Análisis multidimensional** de razones
-    - 📋 **Reporte completo** con recomendaciones
-    """)
-    st.stop()
+# --- INICIO DE LA MODIFICACIÓN ---
+# 1. Ve a tu Google Drive, haz clic derecho en tu archivo .xlsx y selecciona "Compartir".
+# 2. Cambia el acceso general a "Cualquier persona con el enlace".
+# 3. Copia el enlace. Se verá así: https://drive.google.com/file/d/1abc12345xyz.../view
+# 4. Extrae SOLO la parte que está entre "/d/" y "/view" (ese es tu ID).
+# 5. Pega ese ID abajo, reemplazando 'TU_ID_DEL_ARCHIVO_AQUI'.
 
-# Cargar datos
-with st.spinner("Cargando datos..."):
-    df, df_limpio = cargar_datos(archivo)
+FILE_ID = "1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy" 
+archivo_url = f"https://drive.google.com/uc?export=download&id=1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy"
+
+st.sidebar.success("✅ Archivo conectado automáticamente desde Google Drive.")
+
+# Cargar datos directamente desde la URL
+with st.spinner("Descargando y cargando datos desde Google Drive..."):
+    try:
+        df, df_limpio = cargar_datos(archivo_url)
+    except Exception as e:
+        st.error(f"❌ Error al cargar el archivo de Drive. Verifica que el ID sea correcto y el archivo sea público. Detalle: {e}")
+        st.stop()
+# --- FIN DE LA MODIFICACIÓN ---
+
 
 # ============================================================================
 # FILTROS GLOBALES EN SIDEBAR
@@ -238,12 +228,10 @@ semestres_sel = st.sidebar.multiselect(
     format_func=lambda x: f"Semestre {x}"
 )
 
-# Validación de filtros
 if not años_sel or not semestres_sel:
     st.warning("⚠️ Selecciona al menos un año y un semestre en el panel lateral.")
     st.stop()
 
-# Aplicar filtros globales
 df_f = df_limpio[
     df_limpio['Año'].isin(años_sel) &
     df_limpio['Semestre'].isin(semestres_sel)
