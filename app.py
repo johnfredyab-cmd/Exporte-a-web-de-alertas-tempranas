@@ -146,7 +146,7 @@ def get_base64_of_bin_file(bin_file):
 
 # 2. Cargar el logo específico que está en tu directorio
 # Reemplaza 'nombre_del_logo_nuevo.png' por el nombre exacto de tu archivo
-ruta_logo_especifico = "nombre_del_logo_nuevo.png" 
+ruta_logo_especifico = "BLANCO.png" 
 
 if os.path.exists(ruta_logo_especifico):
     logo_especifico_b64 = get_base64_of_bin_file(ruta_logo_especifico)
