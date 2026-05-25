@@ -28,6 +28,7 @@ warnings.filterwarnings('ignore')
 # IMPORTANTE: Reemplaza este ID por el ID real de tu archivo en Google Drive
 ID_DRIVE = "1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy" 
 URL_DRIVE = f'https://docs.google.com/spreadsheets/d/1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy/export?format=xlsx'
+#https://docs.google.com/spreadsheets/d/1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy/edit?usp=sharing&ouid=115985076438086553034&rtpof=true&sd=true
 
 # ============================================================================
 # FUNCIONES UTILITARIAS Y DE LOGOS
