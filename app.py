@@ -72,7 +72,7 @@ st.markdown("""
     .main-header h3 { margin: 0 0 4px 0; font-size: 1.1rem; opacity: .92; }
     .main-header p  { margin: 0; font-size: .85rem; opacity: .80; }
     .metric-card {
-        background: black;
+        background: white;
         padding: 15px;
         border-radius: 8px;
         border-left: 5px solid #C73E1D;
@@ -135,13 +135,32 @@ def cargar_datos(archivo):
 # ============================================================================
 # ENCABEZADO PRINCIPAL
 # ============================================================================
-_logo_tag = (
-    f'<img src="data:image/png;base64,{_LOGO_B64}" class="main-header-logo" alt="Logo UFPS">'
-    if _LOGO_B64 else ""
-)
+import base64
+import os
+
+# 1. Función para convertir la imagen local a base64
+def get_base64_of_bin_file(bin_file):
+    with open(bin_file, 'rb') as f:
+        data = f.read()
+    return base64.b64encode(data).decode()
+
+# 2. Cargar el logo específico que está en tu directorio
+# Reemplaza 'nombre_del_logo_nuevo.png' por el nombre exacto de tu archivo
+ruta_logo_especifico = "nombre_del_logo_nuevo.png" 
+
+if os.path.exists(ruta_logo_especifico):
+    logo_especifico_b64 = get_base64_of_bin_file(ruta_logo_especifico)
+    _nuevo_logo_tag = f'<img src="data:image/png;base64,{logo_especifico_b64}" class="main-header-logo" alt="Logo Especifico">'
+else:
+    # Si el archivo no se encuentra, dejamos el tag vacío o puedes poner un texto
+    _nuevo_logo_tag = ""
+
+# ============================================================================
+# ENCABEZADO PRINCIPAL (MODIFICADO)
+# ============================================================================
 st.markdown(f"""
 <div class="main-header">
-    {_logo_tag}
+    {_nuevo_logo_tag}
     <div class="main-header-text">
         <h1>📊 Dashboard de Alertas Tempranas</h1>
         <h3>Universidad Francisco de Paula Santander — UFPS</h3>
