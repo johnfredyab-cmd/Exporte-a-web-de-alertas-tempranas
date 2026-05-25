@@ -19,7 +19,16 @@ import os
 from datetime import datetime
 from wordcloud import WordCloud
 import warnings
+import requests
+from io import BytesIO
 warnings.filterwarnings('ignore')
+
+# ============================================================================
+# CONFIGURACIÓN DE DATOS (GOOGLE DRIVE)
+# ============================================================================
+# IMPORTANTE: Reemplaza este ID por el de tu archivo real
+ID_DRIVE = "1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy" 
+URL_DRIVE = f'https://docs.google.com/spreadsheets/d/1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy/export?format=xlsx'
 
 # ============================================================================
 # FUNCIÓN UTILITARIA: CARGAR LOGO EN BASE64
