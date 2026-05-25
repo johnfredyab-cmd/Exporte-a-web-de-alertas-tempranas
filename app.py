@@ -68,9 +68,9 @@ st.markdown("""
     .main-header-text {
         text-align: left;
     }
-    .main-header h1 { margin: 0 0 4px 0; font-size: 1.7rem; }
-    .main-header h3 { margin: 0 0 4px 0; font-size: 1.1rem; opacity: .92; }
-    .main-header p  { margin: 0; font-size: .85rem; opacity: .80; }
+    .main-header h1 { margin: 0 0 4px 0; font-size: 2.5rem; }
+    .main-header h3 { margin: 0 0 4px 0; font-size: 1.7rem; opacity: .92; }
+    .main-header p  { margin: 0; font-size: 1.0rem; opacity: .80; }
     .metric-card {
         background: white;
         padding: 15px;
@@ -175,7 +175,7 @@ st.markdown(f"""
 if _LOGO_B64:
     st.sidebar.markdown(
         f'<img src="data:image/png;base64,{_LOGO_B64}" '
-        f'style="width:230px; display:block; margin:0 auto 10px auto;" alt="Logo UFPS">',
+        f'style="width:250px; display:block; margin:0 auto 20px auto;" alt="Logo UFPS">',
         unsafe_allow_html=True
     )
 else:
