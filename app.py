@@ -28,8 +28,8 @@ warnings.filterwarnings('ignore')
 # ============================================================================
 # IMPORTANTE: Reemplaza este ID por el ID de tu archivo de Excel en Google Drive
 # El ID es la cadena de letras y números que aparece en la URL de tu archivo en Drive.
-ID_DRIVE = "TU_ID_DE_ARCHIVO_AQUI" 
-URL_DRIVE = f'https://docs.google.com/spreadsheets/d/{ID_DRIVE}/export?format=xlsx'
+ID_DRIVE = "1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy" 
+URL_DRIVE = f'https://docs.google.com/spreadsheets/d/1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy/export?format=xlsx'
 
 # ============================================================================
 # FUNCIÓN UTILITARIA: CARGAR LOGO EN BASE64
