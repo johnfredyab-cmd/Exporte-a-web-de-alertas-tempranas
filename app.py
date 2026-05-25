@@ -72,7 +72,7 @@ st.markdown("""
     .main-header h3 { margin: 0 0 4px 0; font-size: 1.1rem; opacity: .92; }
     .main-header p  { margin: 0; font-size: .85rem; opacity: .80; }
     .metric-card {
-        background: white;
+        background: black;
         padding: 15px;
         border-radius: 8px;
         border-left: 5px solid #C73E1D;
