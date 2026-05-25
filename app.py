@@ -154,7 +154,7 @@ if os.path.exists(ruta_logo_especifico):
     _nuevo_logo_tag = (
         f'<img src="data:image/png;base64,{logo_especifico_b64}" '
         f'class="main-header-logo" '
-        f'style="width: 2000px; height: auto; margin-right: 40px;" ' # <--- AJUSTA EL ANCHO AQUÍ
+        f'style="width: 200px; height: auto; margin-right: 40px;" ' # <--- AJUSTA EL ANCHO AQUÍ
         f'alt="Logo Especifico">')
 else:
     # Si el archivo no se encuentra, dejamos el tag vacío o puedes poner un texto
