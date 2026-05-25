@@ -1,4 +1,4 @@
-# -*- coding: utf-8 -*-
+#Codigo Alertas Tempranas 2026 John. F Arias#
 """
 DASHBOARD DE ALERTAS TEMPRANAS - UFPS
 Universidad Francisco de Paula Santander
@@ -74,13 +74,13 @@ st.markdown("""
     .metric-card {
         background: white;
         padding: 15px;
-        border-radius: 8px;
+        border-radius: 10px;
         border-left: 5px solid #C73E1D;
         box-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
     .section-title {
         color: #8B0000;
-        border-bottom: 2px solid #C73E1D;
+        border-bottom: 4px solid #C73E1D;
         padding-bottom: 5px;
         margin-top: 20px;
     }
@@ -152,7 +152,7 @@ if os.path.exists(ruta_logo_especifico):
     _nuevo_logo_tag = (
         f'<img src="data:image/png;base64,{logo_especifico_b64}" '
         f'class="main-header-logo" '
-        f'style="width: 200px; height: auto; margin-right: 70px;" ' 
+        f'style="width: 200px; height: auto; margin-right: 20px;" ' 
         f'alt="Logo Especifico">')
 else:
     _nuevo_logo_tag = ""
@@ -175,7 +175,7 @@ st.markdown(f"""
 if _LOGO_B64:
     st.sidebar.markdown(
         f'<img src="data:image/png;base64,{_LOGO_B64}" '
-        f'style="width:250px; display:block; margin:0 auto 20px auto;" alt="Logo UFPS">',
+        f'style="width:300px; display:block; margin:0 auto 20px auto;" alt="Logo UFPS">',
         unsafe_allow_html=True
     )
 else:
