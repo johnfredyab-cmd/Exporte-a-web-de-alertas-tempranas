@@ -152,7 +152,7 @@ if os.path.exists(ruta_logo_especifico):
     _nuevo_logo_tag = (
         f'<img src="data:image/png;base64,{logo_especifico_b64}" '
         f'class="main-header-logo" '
-        f'style="width: 200px; height: auto; margin-right: 40px;" ' 
+        f'style="width: 200px; height: auto; margin-right: 70px;" ' 
         f'alt="Logo Especifico">')
 else:
     _nuevo_logo_tag = ""
