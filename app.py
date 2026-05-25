@@ -31,6 +31,16 @@ ID_DRIVE = "1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy"
 URL_DRIVE = f'https://docs.google.com/spreadsheets/d/1kOy-kkQwz4PCP-hOPQWF41MO6ICOjHdy/export?format=xlsx'
 
 # ============================================================================
+# CARGA AUTOMÁTICA DE DATOS
+# ============================================================================
+with st.spinner("Sincronizando con la base de datos en Google Drive..."):
+    df, df_limpio = cargar_datos_automatico(URL_DRIVE)
+
+if df is None:
+    st.error("No se pudo cargar el archivo. Verifica que el ID de Drive sea correcto y que el archivo tenga permisos de 'Cualquier persona con el enlace'.")
+    st.stop()
+
+# ============================================================================
 # FUNCIÓN UTILITARIA: CARGAR LOGO EN BASE64
 # ============================================================================
 def cargar_logo_base64(ruta_imagen: str) -> str:
