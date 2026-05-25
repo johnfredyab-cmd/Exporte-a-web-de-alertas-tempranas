@@ -59,7 +59,7 @@ st.markdown("""
         gap: 24px;
     }
     .main-header-logo {
-        height: 90px;
+        height: 150px;
         width: auto;
         flex-shrink: 0;
         /* invertir colores para que el logo blanco/transparente se vea sobre fondo rojo */
