@@ -40,6 +40,14 @@ if df is None:
     st.error("No se pudo cargar el archivo. Verifica que el ID de Drive sea correcto y que el archivo tenga permisos de 'Cualquier persona con el enlace'.")
     st.stop()
 
+@st.cache_data(ttl=600)
+def cargar_datos_automatico(url):
+    """Carga y prepara los datos desde la URL de Drive."""
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            df = pd.read_excel(BytesIO(response.content))
+
 # ============================================================================
 # FUNCIÓN UTILITARIA: CARGAR LOGO EN BASE64
 # ============================================================================
