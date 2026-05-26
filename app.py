@@ -163,7 +163,7 @@ st.markdown(f"""
     <div class="main-header-text">
         <h1>📊 Dashboard de Alertas Tempranas</h1>
         <h3>Universidad Francisco de Paula Santander — UFPS</h3>
-        <p>Análisis de Deserción y Permanencia Estudiantil | Maestría TIC aplicadas a la Educación</p>
+        <p>Sistema para la visualización y análisis de las causas de permanencia y deserción en el programa de Ingeniería Electrónica | Maestría TIC aplicadas a la Educación</p>
     </div>
 </div>
 """, unsafe_allow_html=True)
