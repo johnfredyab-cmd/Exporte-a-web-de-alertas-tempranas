@@ -37,7 +37,7 @@ _LOGO_B64  = cargar_logo_base64(_LOGO_PATH) if os.path.exists(_LOGO_PATH) else N
 # CONFIGURACIÓN DE PÁGINA
 # ============================================================================
 st.set_page_config(
-    page_title="Dashboard Alertas Tempranas - UFPS",
+    page_title="Sistema para la visualización y análisis de las causas de permanencia y deserción en el programa de Ingeniería Electrónica - UFPS",
     page_icon="🎓",
     layout="wide",
     initial_sidebar_state="expanded"
