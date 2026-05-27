@@ -312,36 +312,16 @@ with tab1:
     # 3. Tendencia anual
     alertas_año_s = df_f['Año'].value_counts().sort_index()
     if len(alertas_año_s) > 0:
-    # 1. Traza la línea principal y los puntos
-    axes[1, 0].plot(alertas_año_s.index, alertas_año_s.values,
-                    marker='o', linewidth=3, markersize=12,
-                    color='#910303', markerfacecolor='white', markeredgewidth=3)
-    
-    # 2. Agrega los números con una separación perfecta (usando annotate)
-    for año, val in alertas_año_s.items():
-        axes[1, 0].annotate(str(val), 
-                            (año, val), 
-                            textcoords="offset points", 
-                            xytext=(0, 12),
-                            ha='center', 
-                            va='bottom',
-                            fontweight='bold', 
-                            fontsize=11)
-    
-    # 3. Mantiene el área sombreada rosada clara
-    axes[1, 0].fill_between(alertas_año_s.index, alertas_año_s.values, alpha=0.2, color='#910303')
-    
-    axes[1, 0].set_xticks(alertas_año_s.index)
-    
-    # 4. Ajusta el "techo" de la gráfica
-    y_max = alertas_año_s.max()
-    axes[1, 0].set_ylim(bottom=0, top=y_max * 1.15) 
-
-# Configuración final de títulos y diseño
-axes[1, 0].set_title('Tendencia Anual', fontweight='bold')
-axes[1, 0].set_xlabel('Año')
-axes[1, 0].set_ylabel('Número de Alertas')
-axes[1, 0].grid(True, alpha=0.3, linestyle='--')
+        axes[1, 0].plot(alertas_año_s.index, alertas_año_s.values,
+                        marker='o', linewidth=3, markersize=12,
+                        color='#910303', markerfacecolor='white', markeredgewidth=3)
+        for año, val in alertas_año_s.items():
+            axes[1, 0].text(año, val + 5, str(val), ha='center', fontweight='bold', fontsize=11)
+        axes[1, 0].fill_between(alertas_año_s.index, alertas_año_s.values, alpha=0.2, color='#910303')
+        axes[1, 0].set_xticks(alertas_año_s.index)
+    axes[1, 0].set_title('Tendencia Anual', fontweight='bold')
+    axes[1, 0].set_xlabel('Año'); axes[1, 0].set_ylabel('Número de Alertas')
+    axes[1, 0].grid(True, alpha=0.3, linestyle='--')
 
     # 4. Distribución mensual
     alertas_mes = df_f['Mes'].value_counts().sort_index()
