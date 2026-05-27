@@ -344,9 +344,9 @@ axes[1, 0].set_xlabel('Año')
 axes[1, 0].set_ylabel('Número de Alertas')
 axes[1, 0].grid(True, alpha=0.3, linestyle='--')
 
-    # 4. Distribución mensual
-    alertas_mes = df_f['Mes'].value_counts().sort_index()
-    meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
+ # 4. Distribución mensual
+alertas_mes = df_f['Mes'].value_counts().sort_index()
+meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
     if len(alertas_mes) > 0:
         colores_meses = ['#C73E1D' if m <= 6 else '#695757' for m in alertas_mes.index]
         axes[1, 1].bar(alertas_mes.index, alertas_mes.values, color=colores_meses, edgecolor='black')
