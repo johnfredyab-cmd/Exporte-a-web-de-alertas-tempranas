@@ -309,59 +309,34 @@ with tab1:
     for i, v in enumerate(alertas_sem.values):
         axes[0, 1].text(alertas_sem.index[i], v + 3, str(v), ha='center', fontweight='bold')
 
-      # 3. Tendencia anual
+    # 3. Tendencia anual
     alertas_año_s = df_f['Año'].value_counts().sort_index()
-    
-        if len(alertas_año_s) > 0:
-    # 1. Traza la línea principal y los puntos
-    axes[1, 0].plot(alertas_año_s.index, alertas_año_s.values,
-    marker='o', linewidth=3, markersize=12,
-    color='#910303', markerfacecolor='white', markeredgewidth=3)
-    
-    # 2. Agrega los números con una separación perfecta (usando annotate)
+    if len(alertas_año_s) > 0:
+        axes[1, 0].plot(alertas_año_s.index, alertas_año_s.values,
+                        marker='o', linewidth=3, markersize=12,
+                        color='#910303', markerfacecolor='white', markeredgewidth=3)
         for año, val in alertas_año_s.items():
-    axes[1, 0].annotate(str(val), 
-    (año, val), 
-    textcoords="offset points", 
-    xytext=(0, 12),  # Sube el texto 12 puntos
-    ha='center', 
-    va='bottom',
-    fontweight='bold', 
-    fontsize=11)
-    
-    # 3. Mantiene el área sombreada rosada clara (rojo con 20% de opacidad)
-    axes[1, 0].fill_between(alertas_año_s.index, alertas_año_s.values, alpha=0.2, color='#910303')
-    
-    axes[1, 0].set_xticks(alertas_año_s.index)
-    
-    # 4. Ajusta el "techo" de la gráfica para que el número más alto no se corte
-    y_max = alertas_año_s.max()
-    axes[1, 0].set_ylim(bottom=0, top=y_max * 1.15) 
-    
-    # Configuración final de títulos y diseño
-    axes[1, 0].set_title('Tendencia Anual', fontweight='bold')
-    axes[1, 0].set_xlabel('Año')
-    axes[1, 0].set_ylabel('Número de Alertas')
-    axes[1, 0].grid(True, alpha=0.3, linestyle='--')
-    
+            # Aumentamos el +5 a +15 y agregamos va='bottom'
+            axes[1, 0].text(año, val + 15, str(val), ha='center', va='bottom', fontweight='bold', fontsize=11)
+
     # 4. Distribución mensual
     alertas_mes = df_f['Mes'].value_counts().sort_index()
     meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic']
-        if len(alertas_mes) > 0:
-    colores_meses = ['#C73E1D' if m <= 6 else '#695757' for m in alertas_mes.index]
-    axes[1, 1].bar(alertas_mes.index, alertas_mes.values, color=colores_meses, edgecolor='black')
-    axes[1, 1].set_xticks(range(1, 13)); axes[1, 1].set_xticklabels(meses, rotation=45, ha='right')
+    if len(alertas_mes) > 0:
+        colores_meses = ['#C73E1D' if m <= 6 else '#695757' for m in alertas_mes.index]
+        axes[1, 1].bar(alertas_mes.index, alertas_mes.values, color=colores_meses, edgecolor='black')
+        axes[1, 1].set_xticks(range(1, 13)); axes[1, 1].set_xticklabels(meses, rotation=45, ha='right')
         for mes, val in alertas_mes.items():
-    axes[1, 1].text(mes, val + 1, str(val), ha='center', fontweight='bold', fontsize=8)
-    legend_el = [
-    mpatches.Patch(facecolor='#C73E1D', label='Semestre 1 (Ene-Jun)'),
-    mpatches.Patch(facecolor='#695757', label='Semestre 2 (Jul-Dic)')
-    ]
-    axes[1, 1].legend(handles=legend_el, loc='upper right', fontsize=8)
+            axes[1, 1].text(mes, val + 1, str(val), ha='center', fontweight='bold', fontsize=8)
+        legend_el = [
+            mpatches.Patch(facecolor='#C73E1D', label='Semestre 1 (Ene-Jun)'),
+            mpatches.Patch(facecolor='#695757', label='Semestre 2 (Jul-Dic)')
+        ]
+        axes[1, 1].legend(handles=legend_el, loc='upper right', fontsize=8)
     axes[1, 1].set_title('Distribución por Mes', fontweight='bold')
     axes[1, 1].set_xlabel('Mes'); axes[1, 1].set_ylabel('Número de Alertas')
     axes[1, 1].grid(axis='y', alpha=0.3)
-    
+
     plt.tight_layout()
     st.pyplot(fig)
     plt.close()
