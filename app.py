@@ -316,15 +316,8 @@ with tab1:
                         marker='o', linewidth=3, markersize=12,
                         color='#910303', markerfacecolor='white', markeredgewidth=3)
         for año, val in alertas_año_s.items():
-            # xytext=(0, 12) mueve el texto 12 puntos hacia arriba
-            axes[1, 0].annotate(str(val), 
-                                (año, val), 
-                                textcoords="offset points", 
-                                xytext=(0, 12), 
-                                ha='center', 
-                                va='bottom',
-                                fontweight='bold', 
-                                fontsize=11)
+            # Aumentamos el +5 a +15 y agregamos va='bottom'
+            axes[1, 0].text(año, val + 15, str(val), ha='center', va='bottom', fontweight='bold', fontsize=11)
 
     # 4. Distribución mensual
     alertas_mes = df_f['Mes'].value_counts().sort_index()
